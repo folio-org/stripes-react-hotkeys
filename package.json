@@ -10,12 +10,9 @@
     "react"
   ],
   "license": "Apache-2.0",
-  "repository": "folio-org/stripes-components",
+  "repository": "folio-org/stripes-react-hotkeys",
   "publishConfig": {
     "registry": "https://repository.folio.org/repository/npm-folio/"
-  },
-  "bugs": {
-    "url": "https://github.com/folio-org/stripes-react-hotkeys/issues"
   },
   "homepage": "https://github.com/folio-org/stripes-react-hotkeys#readme",
   "devDependencies": {
