@@ -66,3 +66,14 @@ keyMap | object | Object of named hotkey sequences: e.g. { 'deletion': ['delete'
 handlers | object | Object of hotkey sequence names with corresponding handler functions: e.g. { 'delete': this.doDelete }| |
 noWrapper | bool | if true, HotKeys will attempt to use its child component's outer container as its basis for focus. If false, it will wrap the component in the element with the tagname provided in the `component` prop. | false |
 component | any | Tagname of component that will be potentially used to wrap the child component and keep track of focus. | 'div' |
+
+## Additional information
+
+[Change-log](CHANGELOG.md).
+
+See [stripes-core](https://github.com/folio-org/stripes-core).
+
+See project [STRIPES](https://issues.folio.org/browse/STRIPES)
+at the [FOLIO issue tracker](http://dev.folio.org/community/guide-issues).
+
+Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
