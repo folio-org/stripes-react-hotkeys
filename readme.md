@@ -1,6 +1,15 @@
 # HotKeys
  Add keyboard shortcuts to FOLIO modules or even sub-sections of modules.
 
+[x](http://github.com/Chrisui/react-hotkeys)
+
+# Note
+
+<font color="red">
+
+This is a fork of [the original `react-hotkeys`](http://github.com/Chrisui/react-hotkeys), which we hope will be merged back into the original and eventually deprecated. It exists only because pull requests are slow to be accepted in the original. **Do not make unnecessary edits in this repository** otherwise merging will become more difficult.
+</font>
+
 ## Usage
 <!--#### Method 1: JSX component-->
 
