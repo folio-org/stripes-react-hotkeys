@@ -9,7 +9,7 @@
     "folio",
     "react"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "repository": "folio-org/stripes-react-hotkeys",
   "publishConfig": {
     "registry": "https://repository.folio.org/repository/npm-folio/"
