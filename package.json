@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-react-hotkeys",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Stripes' hotkey library based on react-hotkeys.",
   "main": "lib/index.js",
   "keywords": [
@@ -15,19 +15,14 @@
     "registry": "https://repository.folio.org/repository/npm-folio/"
   },
   "homepage": "https://github.com/folio-org/stripes-react-hotkeys#readme",
-  "devDependencies": {
-    "babel-core": "^6.17.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.18.0"
-  },
   "dependencies": {
     "create-react-class": "^15.5.3",
     "lodash": "^4.17.4",
     "mousetrap": "^1.6.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.3.2",
-    "react-dom": "^15.6.1"
+    "prop-types": "^15.5.10"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
   }
 }
