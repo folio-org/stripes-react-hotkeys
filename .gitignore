@@ -1,2 +1,5 @@
 /node_modules/
+/umd/
+/es/
+/cjs/
 yarn.lock
