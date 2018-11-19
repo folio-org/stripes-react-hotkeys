@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-react-hotkeys",
-  "version": "1.2.0",
+  "version": "1.2.0-pre.2",
   "description": "Stripes' hotkey library based on react-hotkeys.",
   "main": "index",
   "module": "index.es",
@@ -10,12 +10,28 @@
     "folio",
     "react"
   ],
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
   "license": "MIT",
   "repository": "folio-org/stripes-react-hotkeys",
   "publishConfig": {
     "registry": "https://repository.folio.org/repository/npm-folio/"
   },
   "homepage": "https://github.com/folio-org/stripes-react-hotkeys#readme",
+  "files": [
+    "cjs",
+    "umd",
+    "es",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "index.js",
+    "index.es.js",
+    "index.d.ts"
+  ],
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
