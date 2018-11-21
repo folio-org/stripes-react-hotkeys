@@ -1,12 +1,8 @@
 # HotKeys
  Add keyboard shortcuts to FOLIO modules or even sub-sections of modules.
 
-# Note
-
-<font color="red">
-
-This is a fork of [the original `react-hotkeys`](http://github.com/Chrisui/react-hotkeys), which we hope will be merged back into the original and eventually deprecated. It exists only because pull requests are slow to be accepted in the original. **Do not make unnecessary edits in this repository** otherwise merging will become more difficult.
-</font>
+# Developer Note
+It's best to work on this module via an alias to a directory *outside* of a stripes/yarn workspace. [See stripes-cli documentation on how to do this](https://github.com/folio-org/stripes-cli/blob/master/doc/user-guide.md#configuration) This module publishes its transpiled code that's generated through an npm `prepublish` script. Yarn workspaces, despite installing devDependencies, do not recognize the `prepublish` hook, so the appropriate `main` will not be built there and you may run into errors stating that webpack cannot find the module.
 
 ## Usage
 <!--#### Method 1: JSX component-->
@@ -65,3 +61,5 @@ keyMap | object | Object of named hotkey sequences: e.g. { 'deletion': ['delete'
 handlers | object | Object of hotkey sequence names with corresponding handler functions: e.g. { 'delete': this.doDelete }| |
 noWrapper | bool | if true, HotKeys will attempt to use its child component's outer container as its basis for focus. If false, it will wrap the component in the element with the tagname provided in the `component` prop. | false |
 component | any | Tagname of component that will be potentially used to wrap the child component and keep track of focus. | 'div' |
+focused | bool or func | indicates to the component whether or not the handler should execute and pass 'childHandledEvent' to its context parent. A function will be called at runtime to query the status. | | 
+attach | DOMnode | node to attach the actual mousetrap handler to. By default, it uses the outer container of the component's children | |
