@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import uglify from 'rollup-plugin-uglify';
+import replace from '@rollup/plugin-replace';
+import { uglify } from 'rollup-plugin-uglify';
 import license from 'rollup-plugin-license';
 import path from 'path';
 
@@ -20,6 +20,7 @@ export default {
   ],
   plugins: [
     babel({
+      runtimeHelpers: true,
       exclude: 'node_modules/**'
     }),
 
@@ -32,7 +33,7 @@ export default {
 
     license({
       banner: {
-        file: path.join(__dirname, 'LICENSE')
+        file: path.join(__dirname, 'LICENSE.md')
       }
     })
   ]
