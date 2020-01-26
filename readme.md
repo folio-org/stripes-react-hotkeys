@@ -3,10 +3,8 @@
 
 # Note
 
-<font color="red">
-
-This is a fork of [the original `react-hotkeys`](http://github.com/Chrisui/react-hotkeys), which we hope will be merged back into the original and eventually deprecated. It exists only because pull requests are slow to be accepted in the original. **Do not make unnecessary edits in this repository** otherwise merging will become more difficult.
-</font>
+This is a fork of [the original `react-hotkeys`](http://github.com/Chrisui/react-hotkeys) @v1.
+We've modified it to use a more efficient keyboard handling library (KeyboardJS) replacing the unsupported `mousetrap`.
 
 ## Usage
 <!--#### Method 1: JSX component-->

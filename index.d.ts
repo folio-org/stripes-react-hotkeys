@@ -9,7 +9,7 @@ type KeySequence = KeyboardKeySequence | KeyMapOptions | Array<KeyboardKeySequen
 type KeyMap = { [key: string]: KeySequence };
 
 interface KeyMapOptions {
-  sequence: MouseTrapKeySequence;
+  sequence: KeyboardKeySequence;
   action: KeyEventName;
 }
 

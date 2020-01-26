@@ -32,6 +32,8 @@ Enzyme.configure({adapter: new Adaptor()});
 const {window} = new JSDOM('<html><body></body></html>');
 
 global.document = window.document;
+global.addEventListener = window.addEventListener;
+global.removeEventListener = window.addEventListener;
 global.window = window;
 global.Image = window.Image;
 global.navigator = window.navigator;

@@ -1,5 +1,4 @@
 import babel from 'rollup-plugin-babel';
-import replace from '@rollup/plugin-replace';
 import { uglify } from 'rollup-plugin-uglify';
 import license from 'rollup-plugin-license';
 import path from 'path';
@@ -8,32 +7,33 @@ export default {
   input: 'lib/index.js',
 
   output: {
-    exports: 'named'
+    exports: 'named',
+    globals: {
+      'prop-types': 'PropTypes',
+      react: 'React'
+    }
   },
+  
   external: [
     'prop-types',
     'react',
     'react-dom',
-    'lodash.isequal',
-    'lodash.isboolean',
-    'lodash.isobject'
+    'lodash/isEqual',
+    'lodash/isBoolean',
+    'lodash/isArray',
   ],
   plugins: [
     babel({
-      runtimeHelpers: true,
       exclude: 'node_modules/**'
     }),
 
-    replace({
-      exclude: 'node_modules/**',
-      ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-    }),
-
-    (process.env.NODE_ENV === 'production' && uglify()),
+    process.env.BABEL_ENV === 'production' && uglify(),
 
     license({
       banner: {
-        file: path.join(__dirname, 'LICENSE.md')
+        content: {
+          file: path.join(__dirname, 'LICENSE.md')
+        }
       }
     })
   ]
