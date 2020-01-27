@@ -15,7 +15,8 @@ export default class FocusableElement {
   }
 
   keyPress(keyCode) {
-    simulant.fire(this.getInstance(), 'keypress', {keyCode});
+    const instance = this.getInstance();
+    simulant.fire(instance, 'keypress', {keyCode});
   }
 
   keyUp(keyCode) {

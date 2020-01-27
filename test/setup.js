@@ -33,8 +33,10 @@ const {window} = new JSDOM('<html><body></body></html>');
 
 global.document = window.document;
 global.addEventListener = window.addEventListener;
-global.removeEventListener = window.addEventListener;
+global.removeEventListener = window.removeEventListener;
+global.console = window.console;
 global.window = window;
 global.Image = window.Image;
 global.navigator = window.navigator;
 global.CustomEvent = window.CustomEvent;
+global.activeElement = window.document.activeElement;
