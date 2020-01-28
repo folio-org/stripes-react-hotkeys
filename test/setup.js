@@ -21,8 +21,14 @@ import chaiEnzyme from 'chai-enzyme';
 // chai plugin that allows assertions on function calls
 import sinonChai from 'sinon-chai';
 
+import sinon from 'sinon';
+
 // JS implementation of DOM and HTML spec
 import {JSDOM} from 'jsdom';
+
+import jsdomDevtoolsFormatter from 'jsdom-devtools-formatter';
+
+jsdomDevtoolsFormatter.install();
 
 chai.use(chaiEnzyme());
 chai.use(sinonChai);
@@ -34,6 +40,8 @@ const {window} = new JSDOM('<html><body></body></html>');
 global.document = window.document;
 global.addEventListener = window.addEventListener;
 global.removeEventListener = window.removeEventListener;
+global.document.addEventListener = sinon.stub();
+global.document.removeEventListener = sinon.stub();
 global.console = window.console;
 global.window = window;
 global.Image = window.Image;
