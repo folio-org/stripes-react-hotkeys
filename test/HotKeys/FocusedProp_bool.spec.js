@@ -1,14 +1,15 @@
 import React from 'react';
-import {mount} from 'enzyme';
 import {expect} from 'chai';
 import sinon from 'sinon';
+import {mount, setup} from '../setup'
 
 import HotKeys from '../../lib/HotKeys';
 import KeyCode from '../support/KeyCode';
 import FocusableElement from '../support/FocusableElement';
 
-describe('Activating hotkeys using focused prop:', () => {
+describe('Focused prop: bool', () => {
   before(function () {
+    setup();
     this.keyMap = {
       'ENTER': 'enter',
       'TAB': 'tab',
@@ -29,11 +30,11 @@ describe('Activating hotkeys using focused prop:', () => {
       beforeEach(function () {
         this.wrapper = mount(
           <HotKeys keyMap={this.keyMap} handlers={this.handlers}>
-            <input className="childElement" />
+            <input data-testid="childElement" />
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.childElement');
+        this.input = new FocusableElement(this.wrapper, 'childElement');
       });
 
       it('then DOES NOT call the handler when a key is pressed that matches the keyMap', function() {
@@ -47,11 +48,11 @@ describe('Activating hotkeys using focused prop:', () => {
       beforeEach(function () {
         this.wrapper = mount(
           <HotKeys keyMap={this.keyMap} handlers={this.handlers} focused>
-            <input className="childElement" />
+            <input data-testid="childElement" />
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.childElement');
+        this.input = new FocusableElement(this.wrapper, 'childElement');
       });
 
       it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
@@ -78,13 +79,13 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={this.handlers}>
-                <input className={'handlerChildElement'}/>
+                <input data-testid={'handlerChildElement'}/>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.handlerChildElement');
+        this.input = new FocusableElement(this.wrapper, 'handlerChildElement');
       });
 
       it('then DOES NOT call the handler when a key is pressed that matches the keyMap', function() {
@@ -100,13 +101,13 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap} focused>
             <div >
               <HotKeys handlers={this.handlers}>
-                <input className={'handlerChildElement'}/>
+                <input data-testid={'handlerChildElement'}/>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.handlerChildElement');
+        this.input = new FocusableElement(this.wrapper, 'handlerChildElement');
       });
 
       it('then DOES NOT call the handler when a key is pressed that matches the keyMap', function() {
@@ -122,13 +123,13 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={this.handlers} focused>
-                <input className={'handlerChildElement'}/>
+                <input data-testid={'handlerChildElement'}/>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.handlerChildElement');
+        this.input = new FocusableElement(this.wrapper, 'handlerChildElement');
       });
 
       it('then calls the handler when a key is pressed that matches the keyMap', function() {
@@ -162,17 +163,17 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={this.outerHandlers}>
-                <input className={'outerElement'}/>
+                <input data-testid={'outerElement'}/>
 
                 <HotKeys handlers={this.innerHandlers} focused>
-                  <input className={'innerElement'}/>
+                  <input data-testid={'innerElement'}/>
                 </HotKeys>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.innerElement');
+        this.input = new FocusableElement(this.wrapper, 'innerElement');
       });
 
       it('then only calls the handler defined in the inner component when a key is pressed for which handlers are defined in both components', function() {
@@ -203,17 +204,17 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={this.outerHandlers} focused>
-                <input className={'outerElement'}/>
+                <input data-testid={'outerElement'}/>
 
                 <HotKeys handlers={this.innerHandlers} >
-                  <input className={'innerElement'}/>
+                  <input data-testid={'innerElement'}/>
                 </HotKeys>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.innerElement');
+        this.input = new FocusableElement(this.wrapper, 'innerElement');
       });
 
       it('then only calls the handler defined in the outer component when a key is pressed for which handlers are defined in both components', function() {
@@ -244,17 +245,17 @@ describe('Activating hotkeys using focused prop:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={this.outerHandlers} focused>
-                <input className={'outerElement'}/>
+                <input data-testid={'outerElement'}/>
 
                 <HotKeys handlers={this.innerHandlers} focused>
-                  <input className={'innerElement'}/>
+                  <input data-testid={'innerElement'}/>
                 </HotKeys>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.innerElement');
+        this.input = new FocusableElement(this.wrapper, 'innerElement');
       });
 
       it('then only calls the handler defined in the inner component when a key is pressed for which handlers are defined in both components', function() {
@@ -283,9 +284,9 @@ describe('Activating hotkeys using focused prop:', () => {
   context('when HotKeys components are siblings', () => {
     context('and both components have a focused prop of true', () => {
       beforeEach(function () {
-        this.firstEnterHandler = sinon.spy();
-        this.firstTabHandler = sinon.spy();
-        this.secondEnterHandler = sinon.spy();
+        this.firstEnterHandler = sinon.spy(() => {console.log('first Enter')});
+        this.firstTabHandler = sinon.spy(() => {console.log('first Tab')});
+        this.secondEnterHandler = sinon.spy(() => {console.log('second Enter')});
 
         this.firstHandlers = {
           'ENTER': this.firstEnterHandler,
@@ -297,20 +298,20 @@ describe('Activating hotkeys using focused prop:', () => {
         };
 
         this.wrapper = mount(
-          <HotKeys keyMap={this.keyMap}>
+          <HotKeys keyMap={this.keyMap} id="outer HK">
             <div >
-              <HotKeys handlers={this.firstHandlers} focused>
-                <input className={'firstElement'}/>
+              <HotKeys handlers={this.firstHandlers} focused id="first HK">
+                <input data-testid={'firstElement'}/>
               </HotKeys>
 
-              <HotKeys handlers={this.secondHandlers} focused>
-                <input className={'secondElement'}/>
+              <HotKeys handlers={this.secondHandlers} focused id="second HK">
+                <input data-testid={'secondElement'}/>
               </HotKeys>
             </div>
           </HotKeys>
         );
 
-        this.input = new FocusableElement(this.wrapper, '.firstElement');
+        this.input = new FocusableElement(this.wrapper, 'firstElement');
       });
 
       context('and the focus is on a child of the first component', () => {

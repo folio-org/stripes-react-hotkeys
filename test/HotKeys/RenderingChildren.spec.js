@@ -1,11 +1,13 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, setup} from '../setup';
 import {expect} from 'chai';
 import sinon from 'sinon';
 
 import HotKeys from '../../lib/HotKeys';
+import contains from '../../lib/contains';
 
 describe('Rendering children', () => {
+  setup();
   before(function () {
     this.keyMap = {
       'ENTER': 'enter',
@@ -24,19 +26,20 @@ describe('Rendering children', () => {
 
       this.wrapper = mount(
         <HotKeys keyMap={this.keyMap} handlers={handlers}>
-          <input className="childElement" />
+          <input data-testid="childElement" />
         </HotKeys>
       );
 
     });
 
     it('then renders its children wrapped in a div', function() {
-      let div = this.wrapper.find('div');
-      expect(div).to.containMatchingElement(<input className="childElement" />);
+      let div = this.wrapper.container.firstChild;
+      let input = this.wrapper.getByTestId('childElement');
+      expect(contains(div, input)).to.be.true;
     });
 
     it('then sets a tabIndex of -1', function() {
-      let div = this.wrapper.find('div');
+      let div = this.wrapper.container.firstChild;
       expect(div).to.have.attr('tabindex', '-1');
     });
 
@@ -53,19 +56,20 @@ describe('Rendering children', () => {
 
       this.wrapper = mount(
         <HotKeys keyMap={this.keyMap} handlers={handlers} component={'span'}>
-          <input className="childElement" />
+          <input data-testid="childElement" />
         </HotKeys>
       );
 
     });
 
     it('then renders its children wrapped in a component matching the string', function() {
-      let div = this.wrapper.find('span');
-      expect(div).to.containMatchingElement(<input className="childElement" />);
+      let div = this.wrapper.container.firstChild;
+      let input = this.wrapper.getByTestId('childElement');
+      expect(contains(div, input)).to.be.true;
     });
 
     it('then sets a tabIndex of -1', function() {
-      let div = this.wrapper.find('span');
+      let div = this.wrapper.container.firstChild;
       expect(div).to.have.attr('tabindex', '-1');
     });
 
@@ -82,16 +86,15 @@ describe('Rendering children', () => {
 
       this.wrapper = mount(
         <HotKeys noWrapper keyMap={this.keyMap} handlers={handlers} component={'span'}>
-          <input className="childElement" />
+          <input data-testid="childElement" />
         </HotKeys>
       );
 
     });
 
     it('then renders children without a wrapping element', function() {
-      let html = this.wrapper.html();
-      console.log(html)
-      expect(html).to.equal('<input class="childElement" tabindex="-1">');
+      let html = this.wrapper.container.innerHTML;
+      expect(html).to.equal('<input data-testid="childElement" tabindex="-1">');
     });
   });
 });

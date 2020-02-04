@@ -1,15 +1,13 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {expect} from 'chai';
+import { mount } from '../setup';
+import { fireEvent, wait } from '@testing-library/react';
 import sinon from 'sinon';
 
 import HotKeys from '../../lib/HotKeys';
 import KeyCode from '../support/KeyCode';
 import FocusableElement from '../support/FocusableElement';
 
-const focusHandler = () => { console.log('control focused')};
-
-describe.only('Activating hotkeys by focusing in the DOM:', () => {
+describe('Activating hotkeys by focusing in the DOM:', () => {
   before(function () {
     this.keyMap = {
       'ENTER': 'enter',
@@ -28,10 +26,10 @@ describe.only('Activating hotkeys by focusing in the DOM:', () => {
       this.wrapper = mount(
         <div >
           <HotKeys keyMap={this.keyMap} handlers={handlers}>
-            <input className="childElement" onFocus={focusHandler}/>
+            <input data-testid="childElement" />
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
         );
 
@@ -39,38 +37,35 @@ describe.only('Activating hotkeys by focusing in the DOM:', () => {
 
     context('and a child element is focused', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.childElement');
-        const elem = this.wrapper.find('.childElement');
-        elem.simulate('focus');
-        elem.simulate('keydown', { keyCode: 13, bubbles: true });
-        
-        // this.input.focus();
-        // console.log(this.input);
+        this.handler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'childElement');
+        this.input.focus();
       });
 
       it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.handler).to.have.been.called;
+        expect(this.handler.called).to.be.true;
       });
 
       it('then does NOT call the handler when a key is pressed that does NOT matches the keyMap', function() {
         this.input.keyDown(KeyCode.TAB);
 
-        expect(this.handler).to.not.have.been.called;
+        expect(this.handler.called).to.be.false;
       });
     });
 
     context('and a sibling element is focused', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.siblingElement');
+        this.handler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'siblingElement');
         this.input.focus();
       });
 
       it('then does NOT calls the handler when a key is pressed that matches the keyMap', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.handler).to.not.have.been.called;
+        expect(this.handler.called).to.be.false;
       });
     });
   });
@@ -89,59 +84,61 @@ describe.only('Activating hotkeys by focusing in the DOM:', () => {
           <HotKeys keyMap={this.keyMap}>
             <div >
               <HotKeys handlers={handlers}>
-                <input className={'handlerChildElement'}/>
+                <input data-testid={'handlerChildElement'}/>
               </HotKeys>
             </div>
-            <input className={'keyMapChildElement'}/>
+            <input data-testid={'keyMapChildElement'}/>
           </HotKeys>
 
-          <input className={'siblingElement'}/>
+          <input data-testid={'siblingElement'}/>
         </div>
         );
     });
 
     context('and a child element of the component defining the handlers is focused', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.handlerChildElement');
+        this.handler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'handlerChildElement');
         this.input.focus();
       });
 
       it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.handler).to.have.been.called;
+        expect(this.handler.called).to.be.true;
       });
 
       it('then does NOT call the handler when a key is pressed that does NOT matches the keyMap', function() {
         this.input.keyDown(KeyCode.TAB);
 
-        expect(this.handler).to.not.have.been.called;
+        expect(this.handler.called).to.be.false;
       });
     });
-
     context('and a child element of the component defining the keyMap is focused', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.keyMapChildElement');
+        this.handler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'keyMapChildElement');
         this.input.focus();
       });
 
       it('then does NOT call the handler when a key is pressed that matches the keyMap', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.handler).to.not.have.been.called;
+        expect(this.handler.called).to.be.false;
       });
     });
 
     context('and a sibling element is focused', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.siblingElement');
+        this.handler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'siblingElement');
         this.input.focus();
       });
 
       it('then does NOT calls the handler when a key is pressed that matches the keyMap', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.handler).to.not.have.been.called;
+        expect(this.handler.called).to.be.false;
       });
     });
   });
@@ -166,10 +163,10 @@ describe.only('Activating hotkeys by focusing in the DOM:', () => {
         <HotKeys keyMap={this.keyMap}>
           <div >
             <HotKeys handlers={this.outerHandlers}>
-              <input className={'outerElement'}/>
+              <input data-testid={'outerElement'}/>
 
               <HotKeys handlers={this.innerHandlers}>
-                <input className={'innerElement'}/>
+                <input data-testid={'innerElement'}/>
               </HotKeys>
             </HotKeys>
           </div>
@@ -179,58 +176,64 @@ describe.only('Activating hotkeys by focusing in the DOM:', () => {
 
     context('and a child element of the inner component is in focus', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.innerElement');
+        this.innerEnterHandler.resetHistory();
+        this.outerEnterHandler.resetHistory();
+        this.outerTabHandler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'innerElement');
         this.input.focus();
       });
 
       it('then only calls the handler defined in the inner component when a key is pressed for which handlers are defined in both components', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.innerEnterHandler).to.have.been.called;
-        expect(this.outerEnterHandler).to.not.have.been.called;
+        expect(this.innerEnterHandler.called).to.be.true;
+        expect(this.outerEnterHandler.called).to.be.false;
       });
 
       it('then calls the handler defined in the outer component when a key is pressed that only the outer component has a handler for', function() {
         this.input.keyDown(KeyCode.TAB);
 
-        expect(this.outerTabHandler).to.have.been.called;
+        expect(this.outerTabHandler.called).to.be.true;
       });
 
       it('then does not call any handlers when a key that doesn\'t match any handlers is pressed', function() {
         this.input.keyDown(KeyCode.ALT);
 
-        expect(this.innerEnterHandler).to.not.have.been.called;
-        expect(this.outerTabHandler).to.not.have.been.called;
-        expect(this.outerEnterHandler).to.not.have.been.called;
+        expect(this.innerEnterHandler.called).to.be.false;
+        expect(this.outerTabHandler.called).to.be.false
+        expect(this.outerEnterHandler.called).to.be.false;
       });
 
     });
 
     context('and a child element of the outer component is in focus', () => {
       beforeEach(function () {
-        this.input = new FocusableElement(this.wrapper, '.outerElement');
+        this.innerEnterHandler.resetHistory();
+        this.outerEnterHandler.resetHistory();
+        this.outerTabHandler.resetHistory();
+        this.input = new FocusableElement(this.wrapper, 'outerElement');
         this.input.focus();
       });
 
       it('then only calls the handler defined in the outer component when a key is pressed for which handlers are defined in both components', function() {
         this.input.keyDown(KeyCode.ENTER);
 
-        expect(this.innerEnterHandler).to.not.have.been.called;
-        expect(this.outerEnterHandler).to.have.been.called;
+        expect(this.innerEnterHandler.called).to.be.false;
+        expect(this.outerEnterHandler.called).to.be.true;
       });
 
       it('then calls the handler defined in the outer component when a key is pressed that only the outer component has a handler for', function() {
         this.input.keyDown(KeyCode.TAB);
 
-        expect(this.outerTabHandler).to.have.been.called;
+        expect(this.outerTabHandler.called).to.be.true;
       });
 
       it('then does not call any handlers when a key that doesn\'t match any handlers is pressed', function() {
         this.input.keyDown(KeyCode.ALT);
 
-        expect(this.innerEnterHandler).to.not.have.been.called;
-        expect(this.outerTabHandler).to.not.have.been.called;
-        expect(this.outerEnterHandler).to.not.have.been.called;
+        expect(this.innerEnterHandler.called).to.be.false;
+        expect(this.outerTabHandler.called).to.be.false;
+        expect(this.outerEnterHandler.called).to.be.false;
       });
 
     });

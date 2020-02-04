@@ -1,50 +1,35 @@
-/**
- * Setup.js: Initializes the test environment and its dependencies
- *
- * This file is run once before the test suite is started.
- *
- * It should only include setup code that is applicable to the entire suite.
- *
- * For configuration options of mocha itself, see the mocha.opts file.
- */
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
-// React testing framework for traversing React components' output
-import Enzyme from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
-
-// Assertion library for more expressive syntax
+import ReactDOM from 'react-dom';
 import chai from 'chai';
-
-// chai plugin that allows React-specific assertions for enzyme
-import chaiEnzyme from 'chai-enzyme';
-
-// chai plugin that allows assertions on function calls
-import sinonChai from 'sinon-chai';
-
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chaiDOM from 'chai-dom';
+import { render, cleanup } from '@testing-library/react';
 
-// JS implementation of DOM and HTML spec
-import {JSDOM} from 'jsdom';
+function cleanTestRoot() {
+  let $root = document.getElementById('root');
 
-import jsdomDevtoolsFormatter from 'jsdom-devtools-formatter';
+  // if a root exists, unmount anything inside and remove it
+  if ($root) {
+    ReactDOM.unmountComponentAtNode($root);
+    $root.parentNode.removeChild($root);
+  }
+}
 
-jsdomDevtoolsFormatter.install();
+module.exports = { 
+  mount: function(node, container = 'div') {
+    cleanTestRoot();
+    const elem = document.createElement(container);
+    elem.id = 'root';
+    context = document.body.appendChild(elem);
+    return render(node, { container: document.body.appendChild(elem) });
+  },
 
-chai.use(chaiEnzyme());
-chai.use(sinonChai);
 
-Enzyme.configure({adapter: new Adaptor()});
-
-const {window} = new JSDOM('<html><body></body></html>');
-
-global.document = window.document;
-global.addEventListener = window.addEventListener;
-global.removeEventListener = window.removeEventListener;
-global.document.addEventListener = sinon.stub();
-global.document.removeEventListener = sinon.stub();
-global.console = window.console;
-global.window = window;
-global.Image = window.Image;
-global.navigator = window.navigator;
-global.CustomEvent = window.CustomEvent;
-global.activeElement = window.document.activeElement;
+  setup: function() {
+    chai.use(sinonChai);
+    chai.use(chaiDOM);
+  }
+};

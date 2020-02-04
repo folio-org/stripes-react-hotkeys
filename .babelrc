@@ -32,9 +32,9 @@
 
     "test": {
       "presets": [
-        "@babel/preset-env"
+        ["@babel/preset-env", { "modules" : "cjs" }],
+        "@babel/react"
       ],
-
       "sourceMaps": "inline"
     },
 

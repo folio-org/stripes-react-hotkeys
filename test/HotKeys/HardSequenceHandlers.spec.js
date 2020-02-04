@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, setup} from '../setup';
 import {expect} from 'chai';
 import sinon from 'sinon';
 
@@ -9,6 +9,7 @@ import KeyCode from '../support/KeyCode';
 import FocusableElement from '../support/FocusableElement';
 
 describe('Hard sequence handlers:', () => {
+  setup();
   beforeEach(function () {
     this.hardSequenceHandler = sinon.spy();
 
@@ -22,14 +23,14 @@ describe('Hard sequence handlers:', () => {
       this.wrapper = mount(
         <div >
           <HotKeys handlers={this.handlers}>
-            <input className="childElement" />
+            <input data-testid="childElement" />
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 
@@ -45,14 +46,14 @@ describe('Hard sequence handlers:', () => {
       this.wrapper = mount(
         <div >
           <HotKeys actions={{ 'ENTER': 'enter' }} handlers={this.handlers}>
-            <input className="childElement" />
+            <input data-testid="childElement" />
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 
@@ -70,15 +71,15 @@ describe('Hard sequence handlers:', () => {
 
           <HotKeys actions={{ 'ENTER': 'enter' }} >
             <HotKeys handlers={this.handlers}>
-              <input className="childElement" />
+              <input data-testid="childElement" />
             </HotKeys>
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 
@@ -96,14 +97,14 @@ describe('Hard sequence handlers:', () => {
       this.wrapper = mount(
         <div >
           <HotKeys actions={{ 'ENTER': 'enter' }} handlers={{ 'ENTER': this.otherHandler, ...this.handlers }}>
-            <input className="childElement" />
+            <input data-testid="childElement" />
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 
@@ -123,15 +124,15 @@ describe('Hard sequence handlers:', () => {
         <div >
           <HotKeys actions={{ 'ENTER': 'enter' }} handlers={{ 'ENTER': this.otherHandler }}>
             <HotKeys handlers={ this.handlers }>
-              <input className="childElement" />
+              <input data-testid="childElement" />
             </HotKeys>
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 
@@ -151,15 +152,15 @@ describe('Hard sequence handlers:', () => {
         <div >
           <HotKeys handlers={{ 'enter': this.outerHardSequenceHandler }}>
             <HotKeys handlers={ this.handlers }>
-              <input className="childElement" />
+              <input data-testid="childElement" />
             </HotKeys>
           </HotKeys>
 
-          <input className="siblingElement" />
+          <input data-testid="siblingElement" />
         </div>
       );
 
-      this.input = new FocusableElement(this.wrapper, '.childElement');
+      this.input = new FocusableElement(this.wrapper, 'childElement');
       this.input.focus();
     });
 

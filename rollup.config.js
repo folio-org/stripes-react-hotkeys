@@ -1,12 +1,13 @@
-import babel from 'rollup-plugin-babel';
-import { uglify } from 'rollup-plugin-uglify';
-import license from 'rollup-plugin-license';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+var babel = require('rollup-plugin-babel');
+var uglify = require('rollup-plugin-uglify').uglify;
+var license = require('rollup-plugin-license');
+var resolve = require('@rollup/plugin-node-resolve');
+var commonjs = require('rollup-plugin-commonjs');
 
-import path from 'path';
+var path = require('path');
+var os = require('os');
 
-export default {
+module.exports = {
   input: 'lib/index.js',
 
   output: {
@@ -15,6 +16,7 @@ export default {
       'prop-types': 'PropTypes',
       react: 'React',
       'react-dom': 'ReactDOM',
+      'os': 'os',
       isEqual: 'lodash.isEqual',
       isBoolean: 'lodash.isBoolean',
       isArray: 'lodash.isArray',
@@ -28,18 +30,26 @@ export default {
     'lodash/isEqual',
     'lodash/isBoolean',
     'lodash/isArray',
+    'os',
   ],
   plugins: [
-    resolve(),
+    resolve({
+      preferBuiltins: true
+    }),
     babel({
       exclude: 'node_modules/**'
     }),
 
-    commonjs(),
-    
+    commonjs({
+      exclude: './test/HotKeys/**',
+      namedExports: {
+        'react-dom/test-utils' : ['act']
+      }
+    }),
+
     process.env.BABEL_ENV === 'production' && uglify(),
 
-    license({
+    process.env.NODE_ENV !== 'test' && license({
       banner: {
         content: {
           file: path.join(__dirname, 'LICENSE.md')
