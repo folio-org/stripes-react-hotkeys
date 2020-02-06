@@ -14,11 +14,13 @@ export default class FocusableElement {
   }
 
   keyPress(keyCode) {
+    fireEvent.keyDown(this.element, { keyCode });
     fireEvent.keyPress(this.element, { keyCode });
   }
 
   keyUp(keyCode) {
-    fireEvent.keyPress(this.element, { keyCode });
+    fireEvent.keyDown(this.element, { keyCode });
+    fireEvent.keyUp(this.element, { keyCode });
   }
 
   getInstance() {

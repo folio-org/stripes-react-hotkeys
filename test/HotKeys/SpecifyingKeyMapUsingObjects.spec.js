@@ -7,23 +7,24 @@ import HotKeys from '../../lib/HotKeys';
 import KeyCode from '../support/KeyCode';
 import FocusableElement from '../support/FocusableElement';
 
+let handler = sinon.spy((e) => console.log(`handler used: ${e.type}`));
+
 describe('Specifying key map using objects:', () => {
   setup();
 
   context('when a keydown keymap is specified as an object', () => {
 
     beforeEach(function () {
+      handler.resetHistory();
       this.keyMap = {
         'ENTER': {
           sequence: 'enter',
-          action: 'keydown',
+          eventType: 'keydown',
         },
       };
 
-      this.handler = sinon.spy();
-
       this.handlers = {
-        'ENTER': this.handler,
+        'ENTER': handler,
       };
 
       this.wrapper = mount(
@@ -39,23 +40,22 @@ describe('Specifying key map using objects:', () => {
     it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
       this.input.keyDown(KeyCode.ENTER);
 
-      expect(this.handler).to.have.been.called;
+      expect(handler).to.have.been.called;
     });
   });
 
   context('when a keyup keymap is specified as an object', () => {
     beforeEach(function () {
+      handler.resetHistory();
       this.keyMap = {
         'ENTER': {
           sequence: 'enter',
-          action: 'keyup',
+          eventType: 'keyup',
         },
       };
 
-      this.handler = sinon.spy();
-
       this.handlers = {
-        'ENTER': this.handler,
+        'ENTER': handler,
       };
 
       this.wrapper = mount(
@@ -71,23 +71,22 @@ describe('Specifying key map using objects:', () => {
     it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
       this.input.keyUp(KeyCode.ENTER);
 
-      expect(this.handler).to.have.been.called;
+      expect(handler).to.have.been.called;
     });
   });
 
   context('when a keypress keymap is specified as an object', () => {
     beforeEach(function () {
+      handler.resetHistory();
       this.keyMap = {
         'A': {
           sequence: 'a',
-          action: 'keypress',
+          eventType: 'keypress',
         },
       };
 
-      this.handler = sinon.spy();
-
       this.handlers = {
-        'A': this.handler,
+        'A': handler,
       };
 
       this.wrapper = mount(
@@ -103,7 +102,7 @@ describe('Specifying key map using objects:', () => {
     it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
       this.input.keyPress(KeyCode.A);
 
-      expect(this.handler).to.have.been.called;
+      expect(handler).to.have.been.called;
     });
   });
 });

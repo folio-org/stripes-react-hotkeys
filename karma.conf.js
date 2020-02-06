@@ -8,8 +8,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'test/bundled/**/*.js', watch: false }
+      { pattern: 'test/bundled/**/*.js', watched: false }
     ],
+  
     reporters: ['mocha'],
 
     port: 9876,
