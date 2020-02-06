@@ -1,3 +1,5 @@
+var webpackCfg = require('./webpack.config.js');
+
 module.exports = function(config) {
   config.set({
 
@@ -8,8 +10,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'test/bundled/**/*.js', watch: false }
+      { pattern: 'test/index.js', watch: false }
     ],
+
+    preprocessors: {
+      'test/index.js' : ['webpack']
+    },
+
+    webpack: webpackCfg,
+  
+    webpackMiddleware: {
+      stats: 'errors-only',
+    },
+
     reporters: ['mocha'],
 
     port: 9876,
