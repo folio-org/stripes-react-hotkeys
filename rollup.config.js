@@ -14,12 +14,12 @@ module.exports = {
     exports: 'named',
     globals: {
       'prop-types': 'PropTypes',
-      react: 'React',
+      'react': 'React',
       'react-dom': 'ReactDOM',
       'os': 'os',
-      isEqual: 'lodash.isEqual',
-      isBoolean: 'lodash.isBoolean',
-      isArray: 'lodash.isArray',
+      'lodash/isEqual': 'lodash.isEqual',
+      'lodash/isBoolean': 'lodash.isBoolean',
+      'lodash/isArray': 'lodash.isArray',
     }
   },
   
@@ -34,6 +34,7 @@ module.exports = {
   ],
   plugins: [
     resolve({
+      browser: true,
       preferBuiltins: true
     }),
     babel({
