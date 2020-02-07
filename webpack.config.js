@@ -5,6 +5,8 @@ const config = {
   entry: [
     'react-hot-loader/patch'
   ],
+  mode: 'development',
+  devtool: 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'test/bundle'),
     filename: 'index.js'
@@ -14,7 +16,6 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
-        exclude: /node_modules/
       }
     ]
   },

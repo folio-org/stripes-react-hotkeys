@@ -16,19 +16,22 @@ let enterInnerHandler = sinon.spy(() => console.log('enterInner'));
 
 let tabOuterHandler = sinon.spy(() => console.log('tabOuter'));
 let tabInnerHandler = sinon.spy(() => console.log('tabInner'));
+let tabHandler = sinon.spy(() => console.log('tabHandler'));
 
 let altOuterHandler = sinon.spy(() => console.log('altOuter'));
 let altInnerHandler = sinon.spy(() => console.log('altInner'));
-
+let altHandler = sinon.spy(() => console.log('altHandler'))
 const resetHandlers = () => {
   enterOuterHandler.resetHistory();
   enterInnerHandler.resetHistory();
 
   tabOuterHandler.resetHistory();
   tabInnerHandler.resetHistory();
+  tabHandler.resetHistory();
 
   altOuterHandler.resetHistory();
   altInnerHandler.resetHistory();
+  altHandler.resetHistory();
 
   outer_outer_enter.resetHistory();
   outer_inner_enter.resetHistory();
@@ -59,16 +62,16 @@ describe('Nested key map definitions:', () => {
       beforeEach(function () {
         const handlers = {
           'ENTER_OUTER': enterOuterHandler,
-          'TAB': this.tabOuterHandler,
+          'TAB': tabOuterHandler,
           'ENTER_INNER': enterInnerHandler,
-          'ALT': this.altOuterHandler,
+          'ALT': altOuterHandler,
         };
 
         this.wrapper = mount(
-          <HotKeys keyMap={this.outerKeyMap} handlers={handlers}>
+          <HotKeys keyMap={this.outerKeyMap} handlers={handlers} id="outer">
             <input data-testid="outerChildElement" />
 
-            <HotKeys keyMap={this.innerKeyMap}>
+            <HotKeys keyMap={this.innerKeyMap} id="inner">
               <input data-testid="innerChildElement" />
             </HotKeys>
           </HotKeys>
@@ -83,31 +86,31 @@ describe('Nested key map definitions:', () => {
           this.input.focus();
         });
 
-        it('then calls the handler for the action defined in the outer component when keys that match hotkeys defined only in the outer component are pressed', function() {
+        it('calls bound handler of outer component since it contains a matching keyMap entry', function() {
           this.input.keyDown(KeyCode.TAB);
 
-          expect(this.tabHandler).to.have.been.called;
-          expect(this.enterOuterHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(tabOuterHandler).to.have.been.called;
+          expect(enterOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
         it('then does not trigger any action when keys that match hotkeys defined only in the inner component are pressed', function() {
           this.input.keyDown(KeyCode.ALT);
 
-          expect(this.tabHandler).to.not.have.been.called;
-          expect(this.enterOuterHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(tabOuterHandler).to.not.have.been.called;
+          expect(enterOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
         it('then calls the handler for the action defined in the outer component when keys that match hotkeys defined in both components are pressed', function() {
           this.input.keyDown(KeyCode.ENTER);
 
-          expect(this.enterOuterHandler).to.have.been.called;
-          expect(this.tabHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(enterOuterHandler).to.have.been.called;
+          expect(tabOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
       });
@@ -122,28 +125,28 @@ describe('Nested key map definitions:', () => {
         it('then calls the handler for the action defined in the outer component when keys that match hotkeys defined only in the outer component are pressed', function() {
           this.input.keyDown(KeyCode.TAB);
 
-          expect(this.tabHandler).to.have.been.called;
-          expect(this.enterOuterHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(tabOuterHandler).to.have.been.called;
+          expect(enterOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
         it('then does not trigger any action when keys that match hotkeys defined only in the inner component are pressed', function() {
           this.input.keyDown(KeyCode.ALT);
 
-          expect(this.tabHandler).to.not.have.been.called;
-          expect(this.enterOuterHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(tabOuterHandler).to.not.have.been.called;
+          expect(enterOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
         it('then calls the handler for the action defined in the outer component when keys that match hotkeys defined in both components are pressed', function() {
           this.input.keyDown(KeyCode.ENTER);
 
-          expect(this.enterOuterHandler).to.have.been.called;
-          expect(this.tabHandler).to.not.have.been.called;
-          expect(this.enterInnerHandler).to.not.have.been.called;
-          expect(this.altHandler).to.not.have.been.called;
+          expect(enterOuterHandler).to.have.been.called;
+          expect(tabOuterHandler).to.not.have.been.called;
+          expect(enterInnerHandler).to.not.have.been.called;
+          expect(altOuterHandler).to.not.have.been.called;
         });
 
       });
@@ -176,7 +179,7 @@ describe('Nested key map definitions:', () => {
       context('and a child of the outer component is in focus', () => {
         beforeEach(function () {
           resetHandlers();
-          input = new FocusableElement(wrapper, 'outerChildElement');
+          this.input = new FocusableElement(this.wrapper, 'outerChildElement');
           this.input.focus();
         });
 
@@ -225,7 +228,7 @@ describe('Nested key map definitions:', () => {
           expect(altHandler).to.not.have.been.called;
         });
 
-        xit('then calls the handler for the action defined in the inner component when keys that match hotkeys defined only in the inner component are pressed', function() {
+        it('then calls the handler for the action defined in the inner component when keys that match hotkeys defined only in the inner component are pressed', function() {
           this.input.keyDown(KeyCode.ALT);
 
           expect(tabHandler).to.not.have.been.called;

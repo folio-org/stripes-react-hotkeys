@@ -35,7 +35,7 @@
         ["@babel/preset-env", { "modules" : "cjs" }],
         "@babel/react"
       ],
-      "sourceMaps": "inline"
+      "compact": true
     },
 
     "production": {

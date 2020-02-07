@@ -3,18 +3,20 @@ var webpackCfg = require('./webpack.config.js');
 module.exports = function(config) {
   config.set({
 
-    basePath: '',
+    basePath: './',
 
     frameworks: ['mocha', 'chai'],
-
+    reporters: ['mocha'],
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'test/index.js', watch: false }
+      // { pattern: 'test/**/*.js' }
+      'test/index.js'
     ],
 
     preprocessors: {
-      'test/index.js' : ['webpack']
+      // 'test/**/*.js' : ['webpack', 'sourcemap']
+      'test/index.js' : ['webpack', 'sourcemap']
     },
 
     webpack: webpackCfg,
@@ -22,12 +24,16 @@ module.exports = function(config) {
     webpackMiddleware: {
       stats: 'errors-only',
     },
+    
+    mochaReporter: {
+      showDiff: true,
+    },
 
-    reporters: ['mocha'],
+    client: {
+      clearContext: false,
+    },
 
     port: 9876,
-
-    colors: true,
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG

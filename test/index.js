@@ -1,4 +1,6 @@
 require('core-js/stable');
 require('regenerator-runtime/runtime');
 
-require.context('./HotKeys', false, /\.js$/);
+const requireTest = require.context('./HotKeys', false, /\.js$/);
+
+requireTest.keys().forEach(requireTest);
