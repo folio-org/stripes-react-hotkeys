@@ -2,4 +2,7 @@
 /umd/
 /es/
 /cjs/
+/.cache/
+/test/bundled/
+/artifacts/
 yarn.lock

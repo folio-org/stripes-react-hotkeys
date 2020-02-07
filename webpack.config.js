@@ -30,7 +30,8 @@ const config = {
   },
   devServer: {
     contentBase: './test/bundle'
-  }
+  },
+  node: {fs: 'empty'}
 };
 
 module.exports = config;

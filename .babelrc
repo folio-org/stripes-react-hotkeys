@@ -35,6 +35,16 @@
         ["@babel/preset-env", { "modules" : "cjs" }],
         "@babel/react"
       ],
+      "plugins": [
+        ["istanbul", { 
+          "exclude": [
+            "./test",
+            "./cjs/**/*.js",
+            "./es/**/*.js",
+            "./umd/**/*.js",
+            "./node_modules/**"
+            ]}]
+      ],
       "compact": true
     },
 
