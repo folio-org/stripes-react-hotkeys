@@ -20,6 +20,7 @@ module.exports = {
       'lodash/isEqual': 'lodash.isEqual',
       'lodash/isBoolean': 'lodash.isBoolean',
       'lodash/isArray': 'lodash.isArray',
+      'lodash/omit': 'lodash.omit',
     }
   },
   
@@ -30,6 +31,7 @@ module.exports = {
     'lodash/isEqual',
     'lodash/isBoolean',
     'lodash/isArray',
+    'lodash/omit',
     'os',
   ],
   plugins: [
