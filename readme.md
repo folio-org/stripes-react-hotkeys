@@ -63,3 +63,16 @@ keyMap | object | Object of named hotkey sequences: e.g. { 'deletion': ['delete'
 handlers | object | Object of hotkey sequence names with corresponding handler functions: e.g. { 'delete': this.doDelete }| |
 noWrapper | bool | if true, HotKeys will attempt to use its child component's outer container as its basis for focus. If false, it will wrap the component in the element with the tagname provided in the `component` prop. | false |
 component | any | Tagname of component that will be potentially used to wrap the child component and keep track of focus. | 'div' |
+
+## Development
+
+Clone locally, separate from a workspace and run `yarn`... this will properly build externally exposed package files for commonjs, umd, and es formats as a `prepublish` step.
+
+You can then `yarn link` this into an existing module/workspace.
+
+run `yarn prepublish` to rebuild exposed package files.
+
+Run tests via 
+```
+yarn test-dev
+``
