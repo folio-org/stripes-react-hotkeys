@@ -2,7 +2,7 @@ var babel = require('rollup-plugin-babel');
 var uglify = require('rollup-plugin-uglify').uglify;
 var license = require('rollup-plugin-license');
 var resolve = require('@rollup/plugin-node-resolve');
-var commonjs = require('@rollup/plugin-commonjs');
+var commonjs = require('rollup-plugin-commonjs');
 
 var path = require('path');
 var os = require('os');
