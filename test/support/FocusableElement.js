@@ -1,32 +1,29 @@
-import ReactDOM from 'react-dom';
-import simulant from 'simulant';
+import { fireEvent } from '@testing-library/react';
 
 export default class FocusableElement {
-  constructor(wrapper, selector) {
-    this.element = wrapper.find(selector);
+  constructor(wrapper, testId) {
+    this.element = wrapper.getByTestId(testId);
   }
 
   focus() {
-    this.element.simulate('focus');
+    fireEvent.focus(this.element);
   }
 
   keyDown(keyCode) {
-    simulant.fire(this.getInstance(), 'keydown', {keyCode});
+    fireEvent.keyDown(this.element, { keyCode });
   }
 
   keyPress(keyCode) {
-    simulant.fire(this.getInstance(), 'keypress', {keyCode});
+    fireEvent.keyDown(this.element, { keyCode });
+    fireEvent.keyPress(this.element, { keyCode });
   }
 
   keyUp(keyCode) {
-    simulant.fire(this.getInstance(), 'keyup', {keyCode});
+    fireEvent.keyDown(this.element, { keyCode });
+    fireEvent.keyUp(this.element, { keyCode });
   }
 
   getInstance() {
-    if (!this.instance) {
-      this.instance = ReactDOM.findDOMNode(this.element.instance());
-    }
-
-    return this.instance;
+    return this.element;
   }
 };

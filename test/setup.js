@@ -1,38 +1,32 @@
-/**
- * Setup.js: Initializes the test environment and its dependencies
- *
- * This file is run once before the test suite is started.
- *
- * It should only include setup code that is applicable to the entire suite.
- *
- * For configuration options of mocha itself, see the mocha.opts file.
- */
-
-// React testing framework for traversing React components' output
-import Enzyme from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
-
-// Assertion library for more expressive syntax
+import ReactDOM from 'react-dom';
 import chai from 'chai';
-
-// chai plugin that allows React-specific assertions for enzyme
-import chaiEnzyme from 'chai-enzyme';
-
-// chai plugin that allows assertions on function calls
+import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import chaiDOM from 'chai-dom';
+import { render, cleanup } from '@testing-library/react';
 
-// JS implementation of DOM and HTML spec
-import {JSDOM} from 'jsdom';
+function cleanTestRoot() {
+  let $root = document.getElementById('root');
 
-chai.use(chaiEnzyme());
-chai.use(sinonChai);
+  // if a root exists, unmount anything inside and remove it
+  if ($root) {
+    ReactDOM.unmountComponentAtNode($root);
+    $root.parentNode.removeChild($root);
+  }
+}
 
-Enzyme.configure({adapter: new Adaptor()});
+module.exports = { 
+  mount: function(node, container = 'div') {
+    cleanTestRoot();
+    const elem = document.createElement(container);
+    elem.id = 'root';
+    context = document.body.appendChild(elem);
+    return render(node, { container: document.body.appendChild(elem) });
+  },
 
-const {window} = new JSDOM('<html><body></body></html>');
 
-global.document = window.document;
-global.window = window;
-global.Image = window.Image;
-global.navigator = window.navigator;
-global.CustomEvent = window.CustomEvent;
+  setup: function() {
+    chai.use(sinonChai);
+    chai.use(chaiDOM);
+  }
+};

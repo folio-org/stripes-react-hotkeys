@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-type MouseTrapKeySequence = string | Array<string>;
+type KeyboardKeySequence = string | Array<string>;
 
 type KeyEventName = 'keyup' | 'keydown' | 'keypress';
 
-type KeySequence = MouseTrapKeySequence | KeyMapOptions | Array<MouseTrapKeySequence>;
+type KeySequence = KeyboardKeySequence | KeyMapOptions | Array<KeyboardKeySequence>;
 
 type KeyMap = { [key: string]: KeySequence };
 
 interface KeyMapOptions {
-  sequence: MouseTrapKeySequence;
+  sequence: KeyboardKeySequence;
   action: KeyEventName;
 }
 

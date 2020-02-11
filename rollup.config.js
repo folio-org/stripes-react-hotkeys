@@ -1,38 +1,62 @@
-import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import uglify from 'rollup-plugin-uglify';
-import license from 'rollup-plugin-license';
-import path from 'path';
+var babel = require('rollup-plugin-babel');
+var uglify = require('rollup-plugin-uglify').uglify;
+var license = require('rollup-plugin-license');
+var resolve = require('@rollup/plugin-node-resolve');
+var commonjs = require('rollup-plugin-commonjs');
 
-export default {
+var path = require('path');
+var os = require('os');
+
+module.exports = {
   input: 'lib/index.js',
 
   output: {
-    exports: 'named'
+    exports: 'named',
+    globals: {
+      'prop-types': 'PropTypes',
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'os': 'os',
+      'lodash/isEqual': 'lodash.isEqual',
+      'lodash/isBoolean': 'lodash.isBoolean',
+      'lodash/isArray': 'lodash.isArray',
+      'lodash/omit': 'lodash.omit',
+    }
   },
+  
   external: [
     'prop-types',
     'react',
     'react-dom',
-    'lodash.isequal',
-    'lodash.isboolean',
-    'lodash.isobject'
+    'lodash/isEqual',
+    'lodash/isBoolean',
+    'lodash/isArray',
+    'lodash/omit',
+    'os',
   ],
   plugins: [
+    resolve({
+      browser: true,
+      preferBuiltins: true
+    }),
     babel({
       exclude: 'node_modules/**'
     }),
 
-    replace({
-      exclude: 'node_modules/**',
-      ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+    commonjs({
+      exclude: './test/HotKeys/**',
+      namedExports: {
+        'react-dom/test-utils' : ['act']
+      }
     }),
 
-    (process.env.NODE_ENV === 'production' && uglify()),
+    process.env.BABEL_ENV === 'production' && uglify(),
 
-    license({
+    process.env.NODE_ENV !== 'test' && license({
       banner: {
-        file: path.join(__dirname, 'LICENSE')
+        content: {
+          file: path.join(__dirname, 'LICENSE.md')
+        }
       }
     })
   ]

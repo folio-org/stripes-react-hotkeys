@@ -1,64 +1,69 @@
 {
+  "plugins": [
+    "transform-node-env-inline",
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "presets": [
+    "@babel/react"
+  ],
   "env": {
     "development": {
       "presets": [
-        "es2015",
-        "react",
-        "stage-2"
+        "@babel/preset-env"
       ]
     },
 
     "es-development": {
       "presets": [
         [
-          "es2015",
+          "@babel/preset-env",
           {
             "modules": false
           }
-        ],
-        "react",
-        "stage-2"
+        ]
       ]
     },
 
     "umd-development": {
       "presets": [
-        [
-          "es2015",
-          {
-            "modules": false
-          }
-        ],
-        "react",
-        "stage-2"
-      ],
-      "plugins": [
-        "external-helpers"
+        "@babel/preset-env"
       ]
     },
 
     "test": {
       "presets": [
-        "es2015"
+        ["@babel/preset-env", { "modules" : "cjs" }],
+        "@babel/react"
       ],
-
-      "sourceMaps": "inline"
+      "plugins": [
+        ["istanbul", { 
+          "exclude": [
+            "./test",
+            "./cjs/**/*.js",
+            "./es/**/*.js",
+            "./umd/**/*.js",
+            "./node_modules/**"
+            ]}]
+      ],
+      "compact": true
     },
 
     "production": {
+      "comments": false,
       "presets": [
+        "@babel/preset-env"
+      ]
+    },
+    "es-production": {
+      "comments": false,
+      "presets": [
+        "@babel/preset-env",
         [
-          "es2015",
+          "minify",
           {
-            "modules": false
+            "builtIns": false
           }
-        ],
-        "react",
-        "stage-2"
-      ],
-      "plugins": [
-        "external-helpers",
-        "remove-comments"
+        ]
       ]
     }
   }
