@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-react-hotkeys",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Stripes' hotkey library based on react-hotkeys.",
   "main": "index",
   "module": "index.es",
@@ -60,7 +60,6 @@
     "karma-mocha-reporter": "^2.2.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",
-    "keyboardjs": "^2.5.1",
     "mocha": "^5.2.0",
     "nyc": "^15.0.0",
     "react": "^16.0.0",
