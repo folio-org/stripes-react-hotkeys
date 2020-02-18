@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-react-hotkeys",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Stripes' hotkey library based on react-hotkeys.",
   "main": "index",
   "module": "index.es",
