@@ -23,6 +23,10 @@ export default class FocusableElement {
     fireEvent.keyUp(this.element, { keyCode });
   }
 
+  fill(value) {
+    fireEvent.change(this.element, { target: { value: 'test' } });
+  }
+
   getInstance() {
     return this.element;
   }

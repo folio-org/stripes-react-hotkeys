@@ -1,9 +1,8 @@
 import ReactDOM from 'react-dom';
 import chai from 'chai';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chaiDOM from 'chai-dom';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 function cleanTestRoot() {
   let $root = document.getElementById('root');
