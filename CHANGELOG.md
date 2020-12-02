@@ -1,5 +1,10 @@
 # Stripes-react-hotkeys
 
+## [3.0.8](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.8) (2020-12-01)
+[Full Changelog](https://github.com/folio-org/stripes-react-hotkeys/compare/v3.0.7...v3.0.8)
+
+* check for contained document.activeElement on mount.
+
 ## [3.0.7](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.7) (2020-06-05)
 [Full Changelog](https://github.com/folio-org/stripes-react-hotkeys/compare/v3.0.6...v3.0.7)
 
