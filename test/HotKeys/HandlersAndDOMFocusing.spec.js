@@ -70,6 +70,31 @@ describe('Activating hotkeys by focusing in the DOM:', () => {
     });
   });
 
+  context('when a contained element is auto-focused', () => {
+    beforeEach(async function () {
+      this.handler = sinon.spy();
+
+      const handlers = {
+        'ENTER': this.handler,
+      };
+
+      this.wrapper = await mount(
+        <div >
+          <HotKeys keyMap={this.keyMap} handlers={handlers}>
+            <input autoFocus data-testid="childElement" />
+          </HotKeys>
+        </div>
+        );
+
+        this.input = new FocusableElement(this.wrapper, 'childElement');
+    });
+
+    it('then calls the correct handler when a key is pressed that matches the keyMap', function() {
+      this.input.keyDown(KeyCode.ENTER);
+      expect(this.handler.called).to.be.true;
+    });
+  });
+
   context('when a keyMap is provided to a parent component and a handler to a child component', () => {
 
     beforeEach(function () {
