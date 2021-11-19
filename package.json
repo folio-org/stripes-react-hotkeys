@@ -79,7 +79,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run test-dev karma.conf.ci.js",
+    "test": "npm run test-dev karma.conf.ci.js && npm run build-production",
     "test-dev": "BABEL_ENV=test RTL_SKIP_AUTO_CLEANUP=true karma start",
     "prepare": "npm run build-cjs && npm run build-es && npm run build-umd",
     "build-cjs": "rm -rf cjs && npm run build-development && npm run build-production",
