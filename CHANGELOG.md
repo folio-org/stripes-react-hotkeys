@@ -3,7 +3,7 @@
 ## IN PROGRESS
 
 * `contains` should by null-safe. Refs STRIPES-772.
-* Update `cross-env` dep to v7.0.3
+* Remove cross-env dep, command usage so that it can be published through ci.
 
 ## [3.0.8](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.8) (2020-12-01)
 [Full Changelog](https://github.com/folio-org/stripes-react-hotkeys/compare/v3.0.7...v3.0.8)
