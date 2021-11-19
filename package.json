@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-react-hotkeys",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "description": "Stripes' hotkey library based on react-hotkeys.",
   "main": "index",
   "module": "index.es",
@@ -82,7 +82,7 @@
     "lint": "eslint .",
     "test": "npm run test-dev karma.conf.ci.js && npm run build-production",
     "test-dev": "cross-env BABEL_ENV=test RTL_SKIP_AUTO_CLEANUP=true karma start",
-    "prepare-old": "npm run build-cjs && npm run build-es && npm run build-umd",
+    "prepare": "npm run build-cjs && npm run build-es && npm run build-umd",
     "build-cjs": "rm -rf cjs && npm run build-development && npm run build-production",
     "build-es": "rm -rf es && npm run build-es-development && npm run build-es-production",
     "build-umd": "rm -rf umd && npm run build-umd-development && npm run build-umd-production",
