@@ -3,6 +3,7 @@
 ## IN PROGRESS
 
 * `contains` should by null-safe. Refs STRIPES-772.
+* Remove `react-hot-loader` cruft. Refs STRIPES-788.
 * Current `karma` avoids CVE-2021-23495, CVE-2022-0437.
 
 ## [3.0.8](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.8) (2020-12-01)
