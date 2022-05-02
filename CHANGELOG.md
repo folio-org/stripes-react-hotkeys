@@ -4,6 +4,7 @@
 
 * `contains` should by null-safe. Refs STRIPES-772.
 * Upgrade cross-env dep, build during test so that it can be published through ci.
+* Remove `react-hot-loader` cruft. Refs STRIPES-788.
 
 ## [3.0.8](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.8) (2020-12-01)
 [Full Changelog](https://github.com/folio-org/stripes-react-hotkeys/compare/v3.0.7...v3.0.8)
