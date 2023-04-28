@@ -1,19 +1,19 @@
 import * as React from 'react';
 
-type KeyboardKeySequence = string | Array<string>;
+export type KeyboardKeySequence = string | Array<string>;
 
-type KeyEventName = 'keyup' | 'keydown' | 'keypress';
+export type KeyEventName = 'keyup' | 'keydown' | 'keypress';
 
-type KeySequence = KeyboardKeySequence | KeyMapOptions | Array<KeyboardKeySequence>;
+export type KeySequence = KeyboardKeySequence | KeyMapOptions | Array<KeyboardKeySequence>;
 
-type KeyMap = { [key: string]: KeySequence };
+export type KeyMap = { [key: string]: KeySequence };
 
-interface KeyMapOptions {
+export interface KeyMapOptions {
   sequence: KeyboardKeySequence;
   action: KeyEventName;
 }
 
-interface FocusTrapProps {
+export interface FocusTrapProps {
   /**
    * The React component that should be used in the DOM to wrap the FocusTrap's
    * children and have the internal key listeners bound to
@@ -21,7 +21,7 @@ interface FocusTrapProps {
   component?: React.Component | string;
 }
 
-interface HotKeysProps extends React.HTMLAttributes<HotKeys>, FocusTrapProps {
+export interface HotKeysProps extends React.HTMLAttributes<HotKeys>, FocusTrapProps {
   /**
    * A mapping of action names to key combinations
    */
@@ -61,7 +61,7 @@ interface HotKeysProps extends React.HTMLAttributes<HotKeys>, FocusTrapProps {
  */
 export class HotKeys extends React.Component<HotKeysProps, {}> { }
 
-export declare function withHotKeys(keyMap: { [key: string]: KeySequence }): HotKeys;
+export function withHotKeys(keyMap: { [key: string]: KeySequence }): HotKeys;
 
 /**
  * Component that renders a "focus trap" with a tabIndex property allowing
