@@ -2,9 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
-  entry: [
-    'react-hot-loader/patch'
-  ],
   mode: 'development',
   devtool: 'eval-source-map',
   output: {
@@ -23,10 +20,7 @@ const config = {
     extensions: [
       '.js',
       '.jsx'
-    ],
-    alias: {
-      'react-dom': '@hot-loader/react-dom'
-    }
+    ]
   },
   devServer: {
     contentBase: './test/bundle'
