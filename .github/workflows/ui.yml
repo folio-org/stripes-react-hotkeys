@@ -14,6 +14,7 @@ jobs:
     with:
       jest-enabled: false
       bigtest-enabled: true
+      bigtest-test-command: xvfb-run --server-args="-screen 0 1024x768x24" yarn test
       sonar-sources: ./lib
       compile-translations: false
       generate-module-descriptor: false
