@@ -18,3 +18,4 @@ jobs:
       sonar-sources: ./lib
       compile-translations: false
       generate-module-descriptor: false
+      install-before-publish: true
