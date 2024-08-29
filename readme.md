@@ -13,7 +13,7 @@ We've modified it to use a more efficient keyboard handling library (KeyboardJS)
 ```js
 import { HotKeys } from '@folio/stripes-components/lib/HotKeys';
 //..
-const keys = { 
+const keys = {
   'delete' : ['delete','backspace'],
 };
 
@@ -35,7 +35,7 @@ Components can be wrapped to give them the necessary props/functionality to resp
 import { HotKeysHOC } from '@folio/stripes-components/lib/HotKeys';
 
 class MyComponent extends React.Component {
-  // typical component internals... constructor(), render(), etc.  
+  // typical component internals... constructor(), render(), etc.
 }
 
 // wrap component with HOC...
@@ -44,7 +44,7 @@ export default HotKeysHOC(MyComponent);
 You can then use the component as normal, supplying appropriate `keyMap` and `handlers` props.
 
 ```js
-const keys = { 
+const keys = {
   'delete' : ['delete','backspace'],
 };
 
@@ -63,6 +63,7 @@ keyMap | object | Object of named hotkey sequences: e.g. { 'deletion': ['delete'
 handlers | object | Object of hotkey sequence names with corresponding handler functions: e.g. { 'delete': this.doDelete }| |
 noWrapper | bool | if true, HotKeys will attempt to use its child component's outer container as its basis for focus. If false, it will wrap the component in the element with the tagname provided in the `component` prop. | false |
 component | any | Tagname of component that will be potentially used to wrap the child component and keep track of focus. | 'div' |
+attach | DOM element | DOM node to attach the handlers to | |
 
 ## Development
 
@@ -72,7 +73,7 @@ You can then `yarn link` this into an existing module/workspace.
 
 run `yarn prepublish` to rebuild exposed package files.
 
-Run tests via 
+Run tests via
 ```
 yarn test-dev
 ``
