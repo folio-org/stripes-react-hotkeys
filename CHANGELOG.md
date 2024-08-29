@@ -1,9 +1,11 @@
 # Stripes-react-hotkeys
 
-## IN PROGRESS
+## [3.1.0](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.1.0) (2024-08-29)
 
 * `contains` should by null-safe. Refs STRIPES-772.
 * Remove `react-hot-loader` cruft. Refs STRIPES-788.
+* Remove explicit TypeScript declaration. Refs STRIPES-900.
+* Export TypeScript typings. Refs STRIPES-928.
 * Current `karma` avoids CVE-2021-23495, CVE-2022-0437.
 
 ## [3.0.8](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.0.8) (2020-12-01)
