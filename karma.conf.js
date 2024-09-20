@@ -5,7 +5,7 @@ module.exports = function(config) {
 
     basePath: './',
 
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['webpack', 'mocha', 'chai'],
     reporters: ['mocha'],
 
     // list of files / patterns to load in the browser
@@ -20,11 +20,11 @@ module.exports = function(config) {
     },
 
     webpack: webpackCfg,
-  
+
     webpackMiddleware: {
       stats: 'errors-only',
     },
-    
+
     mochaReporter: {
       showDiff: true,
     },
