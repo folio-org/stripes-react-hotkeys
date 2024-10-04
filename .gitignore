@@ -1,7 +1,4 @@
 /node_modules/
-/umd/
-/es/
-/cjs/
 /.cache/
 /test/bundled/
 /artifacts/
