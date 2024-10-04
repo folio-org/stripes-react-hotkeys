@@ -5,4 +5,3 @@
 /.cache/
 /test/bundled/
 /artifacts/
-yarn.lock

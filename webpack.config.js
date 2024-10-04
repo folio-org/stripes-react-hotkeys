@@ -20,12 +20,20 @@ const config = {
     extensions: [
       '.js',
       '.jsx'
-    ]
+    ],
+    alias: {
+      process: 'process/browser.js'
+    }
   },
   devServer: {
     contentBase: './test/bundle'
   },
-  node: {fs: 'empty'}
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.RTL_SKIP_AUTO_CLEANUP': true
+    })
+  ],
+  node: false
 };
 
 module.exports = config;

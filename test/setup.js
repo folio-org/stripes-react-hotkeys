@@ -1,31 +1,21 @@
-import ReactDOM from 'react-dom';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import chaiDOM from 'chai-dom';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 function cleanTestRoot() {
-  let $root = document.getElementById('root');
-
-  // if a root exists, unmount anything inside and remove it
-  if ($root) {
-    ReactDOM.unmountComponentAtNode($root);
-    $root.parentNode.removeChild($root);
-  }
+  cleanup();
 }
 
-module.exports = { 
-  mount: function(node, container = 'div') {
+export function mount(node, container = 'div') {
     cleanTestRoot();
     const elem = document.createElement(container);
     elem.id = 'root';
     context = document.body.appendChild(elem);
     return render(node, { container: document.body.appendChild(elem) });
-  },
+  }
 
-
-  setup: function() {
+export function setup() {
     chai.use(sinonChai);
     chai.use(chaiDOM);
   }
-};
