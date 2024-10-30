@@ -1,6 +1,8 @@
 # Stripes-react-hotkeys
 
-## 3.2.0 IN PROGRESS
+## [3.2.0](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.2.0) (2024-10-30)
+
+* Migrate way from `findDOMNode`. Refs STCOM-1285.
 
 ## [3.1.0](https://github.com/folio-org/stripes-react-hotkeys/tree/v3.1.0) (2024-08-29)
 
